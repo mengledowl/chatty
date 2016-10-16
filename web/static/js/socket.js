@@ -55,19 +55,21 @@ socket.connect()
 
 // Now that you are connected, you can join channels with a topic:
 let channel = socket.channel("room:lobby", {})
+let userName = document.querySelector("#user-name")
 let chatInput = document.querySelector("#chat-input")
 let messagesContainer = document.querySelector("#messages")
 
 chatInput.addEventListener("keypress", event => {
 	if(event.keyCode === 13) {
-		channel.push("new_msg", { body: chatInput.value })
+		var msg = { user_name: userName.value, body: chatInput.value }
+		channel.push("new_msg", msg)
 		chatInput.value = ""
 	}
 })
 
 channel.on("new_msg", payload => {
 	let messageItem = document.createElement("li");
-	messageItem.innerText = `[${Date()}] ${payload.body}`
+	messageItem.innerText = `[${Date()}] ${payload.user_name}: ${payload.body}`
 	messagesContainer.appendChild(messageItem)
 })
 

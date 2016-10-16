@@ -1,2 +1,7 @@
 <div id="messages"></div>
+
+<label for="user-name">username</label>
+<input id="user-name" type="text">
+
+<label for="chat-input">message</label>
 <input id="chat-input" type="text">

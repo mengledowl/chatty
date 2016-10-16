@@ -15,8 +15,8 @@ defmodule Chatty.RoomChannel do
 		{:noreply, socket}
 	end
 
-	def handle_in("new_msg", %{"body" => body}, socket) do
-		broadcast! socket, "new_msg", %{body: body}
+	def handle_in("new_msg", %{"body" => body, "user_name" => user_name}, socket) do
+		broadcast! socket, "new_msg", %{user_name: user_name, body: body}
 		{:noreply, socket}
 	end
 
