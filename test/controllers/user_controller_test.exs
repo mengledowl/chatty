@@ -2,7 +2,7 @@ defmodule Chatty.UserControllerTest do
   use Chatty.ConnCase
 
   alias Chatty.User
-  @valid_attrs %{bio: "some content", email: "some@email.com", name: "some content", number_of_pets: 42}
+  @valid_attrs %{bio: "some content", email: "some@email.com", name: "some content", number_of_pets: 4}
   @invalid_attrs %{}
 
   test "lists all entries on index", %{conn: conn} do

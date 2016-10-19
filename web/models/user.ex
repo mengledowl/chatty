@@ -11,13 +11,15 @@ defmodule Chatty.User do
     timestamps()
   end
 
+  @required_fields ~w(name email bio)
+  @optional_fields ~w(number_of_pets)
+
   @doc """
   Builds a changeset based on the `struct` and `params`.
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:name, :email, :bio, :number_of_pets])
-    |> validate_required([:name, :email, :bio])
+    |> cast(params, @required_fields, @optional_fields)
     |> validate_length(:bio, min: 2)
     |> validate_length(:bio, max: 140)
     |> validate_format(:email, ~r/@/)
