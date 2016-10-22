@@ -5,7 +5,7 @@ defmodule Chatty.UserController do
 
   def index(conn, _params) do
     users = User |> Repo.all |> Repo.preload([:videos])
-    render(conn, "index.html", users: users)
+    render(conn, :index, users: users)
   end
 
   def new(conn, _params) do
@@ -27,8 +27,10 @@ defmodule Chatty.UserController do
   end
 
   def show(conn, %{"id" => id}) do
-    user = User |> Repo.get!(id) |> Repo.preload([:videos])
-    render(conn, "show.html", user: user)
+    case Repo.get(User, id) do
+      nil -> conn |> put_status(404) |> render("error.json")
+      user -> render conn, :show, user: user
+    end
   end
 
   def edit(conn, %{"id" => id}) do
